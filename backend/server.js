@@ -10,7 +10,13 @@ const app = express();
 // Middleware Section
 
 // Allow frontend to access backend APIs
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://realtrust-frontend.onrender.com"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 // Parse JSON data from requests
 app.use(express.json());
