@@ -33,7 +33,7 @@ router.post("/", upload.single("image"), processImage, async (req, res) => {
       name,
       designation,
       description,
-      image: `/uploads/${req.file.filename}`,
+      image: req.file.path,
     });
 
     await newClient.save();

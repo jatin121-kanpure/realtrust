@@ -51,7 +51,7 @@ export default function Clients() {
                 {/* Client Image */}
                 <div className="mb-4">
                   <img
-                    src={`http://localhost:5000${client.image}`}
+                    src={client.image}
                     alt={client.name}
                     className="w-24 h-24 rounded-full mx-auto object-cover border-4 border-blue-200"
                   />

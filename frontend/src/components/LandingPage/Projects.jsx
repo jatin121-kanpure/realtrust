@@ -51,7 +51,7 @@ export default function Projects() {
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={`http://localhost:5000${project.image}`}
+                    src={project.image}
                     alt={project.name}
                     className="w-full h-full object-cover hover:scale-110 transition duration-300"
                   />

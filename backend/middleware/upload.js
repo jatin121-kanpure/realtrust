@@ -3,6 +3,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const sharp = require("sharp");
+const cloudinary = require("cloudinary").v2;
 
 // Create uploads folder if not exists
 
@@ -67,15 +68,23 @@ const processImage = async (req, res, next) => {
       .jpeg({ quality: 80 })
       .toFile(optimizedPath);
 
-    // Delete original uploaded image
-    fs.unlinkSync(req.file.path);
+    // Upload optimized image to Cloudinary
+    const result = await cloudinary.uploader.upload(optimizedPath, {
+      folder: "portfolio-uploads",
+      public_id: optimizedFileName,
+    });
 
-    // Update request file info
+    // Delete original and optimized local images
+    fs.unlinkSync(req.file.path);
+    fs.unlinkSync(optimizedPath);
+
+    // Update request file info with Cloudinary URL
+    req.file.path = result.secure_url;
     req.file.filename = optimizedFileName;
-    req.file.path = optimizedPath;
 
     next();
   } catch (error) {
+    console.error("Image processing error:", error);
     res.status(500).json({
       error: "Image processing failed",
     });

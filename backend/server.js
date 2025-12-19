@@ -2,7 +2,15 @@
 const express = require("express"); // Express framework
 const mongoose = require("mongoose"); // MongoDB ODM
 const cors = require("cors"); // Handle cross-origin requests
+const cloudinary = require("cloudinary").v2;
 require("dotenv").config(); // Load environment variables
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Create express app
 const app = express();

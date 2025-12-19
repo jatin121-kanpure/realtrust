@@ -47,7 +47,7 @@ router.post("/", upload.single("image"), processImage, async (req, res) => {
     const newProject = new Project({
       name,
       description,
-      image: `/uploads/${req.file.filename}`,
+      image: req.file.path,
     });
 
     await newProject.save();
